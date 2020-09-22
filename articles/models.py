@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -13,4 +14,8 @@ class Category(models.Model):
         return self.name
 
 
-
+class Article(models.Model):
+    author = models.ForeignKey(User, verbose_name='作者', on_delete=models.CASCADE, related_name='articles')
+    title = models.CharField('标题', max_length=100)
+    description = models.CharField('概述', max_length=500)
+    category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.CASCADE, related_name='articles')
