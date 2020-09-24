@@ -4,8 +4,8 @@ from taggit.managers import TaggableManager
 
 
 class Category(models.Model):
-    name = models.CharField('文章分类', max_length=50)
-    description = models.CharField('分类描述', max_length=400)
+    name = models.CharField('文章分类', max_length=20)
+    description = models.CharField('分类描述', max_length=240)
 
     class Meta:
         verbose_name = verbose_name_plural = '分类'
@@ -13,6 +13,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_article_list(self):
+        return Article.objects.filter(category=self)
 
 
 class Article(models.Model):
@@ -27,6 +30,7 @@ class Article(models.Model):
     content = models.TextField('文章内容')
     tags = TaggableManager(verbose_name='标签', blank=True)
     status = models.CharField('是否发布', choices=STATUS)
+    is_top = models.BooleanField('置顶', default=False)
     created = models.DateTimeField('创建时间', auto_now_add=True)
     published = models.DateTimeField('发布时间', blank=True)
     updated = models.DateTimeField('更新时间', auto_now=True)
@@ -34,5 +38,10 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def views_add_one(self):
+        self.views += 1
+        self.save(update_fields=('views',))
+
 
 
