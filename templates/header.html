@@ -1,0 +1,33 @@
+{% load static %}
+<script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'popper/popper-1.14.4.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">Llt-blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainMenu">
+
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="userMenu" data-toggle="dropdown">{{ user.username }}</a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#" class="dropdown-item">我的帐号</a>
+                        <a href="#" class="dropdown-item">修改密码</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item">登出</a>
+                    </div>
+                </li>
+                </ul>
+            {% else %}
+                <form class="form-inline ml-auto">
+                    <a href="#" class="btn-outline-secondary">登入</a>
+                    <a href="#" class="btn-outline-primary">注册</a>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>

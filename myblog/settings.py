@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
 
     'articles',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -126,11 +127,15 @@ USE_L10N = True
 USE_TZ = False
 
 
+AUTH_USER_MODEL = 'accounts.MyAccount'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_FILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
