@@ -26,6 +26,7 @@ class Article(models.Model):
     author = models.ForeignKey(MyAccount, verbose_name='作者', on_delete=models.CASCADE, related_name='articles')
     title = models.CharField('标题', max_length=100)
     description = models.CharField('概述', max_length=500)
+    photo = models.ImageField('博文图片', blank=True, upload_to='images/article/%Y/%m/%d')
     category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.CASCADE, related_name='articles')
     content = models.TextField('文章内容')
     tags = TaggableManager(verbose_name='标签', blank=True)
@@ -42,6 +43,11 @@ class Article(models.Model):
     def views_add_one(self):
         self.views += 1
         self.save(update_fields=('views',))
+
+    class Meta:
+        verbose_name_plural = verbose_name = '文章'
+        ordering = ('-published',)
+
 
 
 

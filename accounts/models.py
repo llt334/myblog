@@ -8,7 +8,7 @@ class MyAccount(AbstractUser):
     phone = models.CharField('电话', max_length=11)
     we_chat = models.CharField('微信', max_length=30)
     qq = models.CharField('QQ', max_length=30)
-    avatar = ProcessedImageField(upload_to='avatar/%Y/%m/%d',
+    avatar = ProcessedImageField(upload_to='avatar/%Y/%m/',
                                  verbose_name='头像',
                                  processors=[ResizeToFill(80, 80)]
                                  )
@@ -18,6 +18,7 @@ class MyAccount(AbstractUser):
 
     class Meta:
         verbose_name_plural = verbose_name = '用户'
+
 
 
 
